@@ -1,0 +1,134 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Item Entry</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+
+    (click)="closeModal()"
+  ></button>
+</div>
+<div class="modal-body">
+
+  <form #itemForm="ngForm">
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">Item Name</label>
+      <div class="col-sm-8">
+        <input type="text"  [(ngModel)]="modelSvc.item.ItemName" name="ItemName"  class="form-control">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">Embodied Carbon Coeffiect Name</label>
+      <div class="col-sm-8">
+        <input type="text" [(ngModel)]="modelSvc.item.CarbonCoefficient" name="CarbonCoefficient"   class="form-control">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">Conversion Unit</label>
+      <div class="col-sm-8">
+
+        <select class="form-control" placeholder="Conversion Unit"  [(ngModel)]="modelSvc.item.ConversionUnitID" name="ConversionUnitID" >
+          <option>Select any one</option>
+          <option *ngFor="let item of unitList" [value]="item.Id">
+            {{item.UnitName}}
+          </option>
+        </select>
+     
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">Remarks</label>
+      <div class="col-sm-8">
+        <input type="text" [(ngModel)]="modelSvc.item.Remarks" name="Remarks"  class="form-control">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">DQI</label>
+      <div class="col-sm-8">
+        <input type="text" [(ngModel)]="modelSvc.item.DQI" name="DQI"   class="form-control">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">Data Source</label>
+      <div class="col-sm-8">
+        <input type="text" [(ngModel)]="modelSvc.item.DataSource" name="DataSource"  class="form-control">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">Data Source Date</label>
+      <div class="col-sm-8">
+        <input type="date" [(ngModel)]="modelSvc.item.DataSourceDate" name="DataSourceDate"  class="form-control">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">Supporting Files</label>
+      <div class="col-sm-8">
+        <input class="form-control" type="file" 
+        (change)="onChange($event)">
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-sm-10 offset-sm-2">
+        <div class="form-check">
+          <label class="form-check-label" for="gridCheck1">
+            Active?
+          </label>
+          <input class="form-check-input"   [(ngModel)]="modelSvc.item.IsActive" name="IsActive"   type="checkbox" >
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">CategoryId Unit</label>
+      <div class="col-sm-8">
+
+        <select class="form-control"  [(ngModel)]="modelSvc.item.CategoryId" name="CategoryId" (ngModelChange)="getSubCategoryIDCategoryId(modelSvc.item.CategoryId)"  >
+          <option>Select any one</option>
+          <option *ngFor="let item of modelSvc.categoryList" [value]="item.Id"   >
+            {{item.Name}}
+          </option>
+        </select>
+     
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">Sub Category</label>
+      <div class="col-sm-8">
+
+        <select class="form-control"    [(ngModel)]="modelSvc.item.SubCategoryId" name="SubCategoryId" (ngModelChange)="getSububCategoryIDSubCategoryId(modelSvc.item.CategoryId)">
+          <option>Select any one</option>
+          <option *ngFor="let item of modelSvc.subCategoryList" [value]="item.Id"   >
+            {{item.Name}}
+          </option>
+        </select>
+     
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label  class="col-sm-4 col-form-label">Sub Sub Category</label>
+      <div class="col-sm-8">
+
+        <select class="form-control" [(ngModel)]="modelSvc.item.SubSubCategoryId" name="SubSubCategoryId">
+          <option>Select any one</option>
+          <option *ngFor="let item of modelSvc.subSubcategoryList" [value]="item.Id" >
+            {{item.Name}}
+          </option>
+        </select>
+     
+      </div>
+    </div>
+
+
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary"  (click)="closeModal()" >
+        Close
+      </button>
+      <button type="button" class="btn btn-primary" (click)="saveItem()">Save changes</button>
+    </div>
+</form>
+</div>
